@@ -1,0 +1,149 @@
+{% extends 'ADMIN/adminBase.html' %}
+{% block header %}
+{% load static %}
+
+
+<div class="col-md-8 col-lg-9">
+    <div class="row">
+        <div class="col-md-12 db-sec-com">
+            <h2 class="db-tit">User Requests</h2>
+            <div class="db-pro-stat">
+                <div class="db-inte-main">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#home">New
+                                Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#menu1">Accepted
+                                Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#Package">Package
+                                </a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div id="home" class="container tab-pane active"><br>
+                            <div class="db-inte-prof-list">
+                                <ul>
+                                    {% if newData %}
+                                    {% for i in newData %}
+                                    <li>
+                                        <div class="db-int-pro-1"> <img src="/static/media/{{i.image}}" alt="">
+                                        </div>
+                                        <div class="db-int-pro-2">
+                                            <h5>{{i.name}}</h5>
+                                            <ol class="poi">
+                                                <li>Email: <strong>{{i.email}}</strong></li>
+                                                <li>Phone: <strong>{{i.phone}}</strong></li>
+                                            </ol>
+                                            <ol class="poi poi-date">
+                                                <li>Request on: {{i.loginid.date_joined}}</li>
+                                            </ol>
+                                            <!-- <a href="profile-details.html" class="cta-5" target="_blank">View full
+                                                profile</a> -->
+                                        </div>
+                                        <div class="db-int-pro-3">
+                                            <button type="button" class="btn btn-success btn-sm"
+                                                onclick="window.location.href='/approveUser?id={{ i.loginid_id }}'">Accept</button>
+                                            <!-- <button type="button" class="btn btn-outline-danger btn-sm"
+                                                onclick="window.location.href='/rejectUser?id={{ i.loginid_id }}'">&nbsp;Deny&nbsp;</button> -->
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <center>
+                                        <h3>No New Requests</h3>
+                                    </center>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="menu1" class="container tab-pane fade"><br>
+                            <div class="db-inte-prof-list">
+                                <ul>
+                                    {% if approvedData %}
+                                    {% for j in approvedData %}
+                                    <li>
+                                        <div class="db-int-pro-1"> <img src="/static/media/{{j.image}}" alt="">
+                                        </div>
+                                        <div class="db-int-pro-2">
+                                            <h5>{{j.name}}</h5>
+                                            <ol class="poi">
+                                                <li>Email: <strong>{{j.email}}</strong></li>
+                                                <li>Phone: <strong>{{j.phone}}</strong></li>
+                                            </ol>
+                                            <ol class="poi poi-date">
+                                                <li>Request on: {{j.loginid.date_joined}}</li>
+                                            </ol>
+                                            <!-- <a href="profile-details.html" class="cta-5" target="_blank">View full
+                                                profile</a> -->
+                                        </div>
+                                        <div class="db-int-pro-3">
+                                            <button type="button" class="btn btn-outline-danger btn-sm"
+                                                onclick="window.location.href='/rejectUser?id={{ j.loginid_id }}'">&nbsp;Deny&nbsp;</button>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <center>
+                                        <h3>No Data</h3>
+                                    </center>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="Package" class="container tab-pane fade"><br>
+                            <div class="db-inte-prof-list">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                              <table class="table">
+                                <tr>
+                                    <th>Package Name</th><th><input type="text" name="pname" id=""></th>
+                                </tr>
+                                <tr>
+                                    <th>Description</th><th><input type="text" name="desc" id=""></th>
+                                </tr>
+                                <tr>
+                                    <th>Price</th><th><input type="text" name="price" id=""></th>
+                                </tr>
+                                <tr>
+                                    <th></th><th><input type="submit" name="sub" value="Submit" id=""></th>
+                                </tr>
+                              </table>
+                              {% if packagedata %}
+                              <table class="table">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                </tr>
+                                {% for d in packagedata %}
+                                <tr>
+                                    <td>{{d.id}}</td><td>{{d.name}}</td><td>{{d.desc}}</td><td>{{d.price}}</td>
+                                </tr>
+                                {% endfor %}
+                              </table>
+                              {% else %}
+                              <h2>NO data</h2>
+                              {% endif %}
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END -->
+{% endblock %}

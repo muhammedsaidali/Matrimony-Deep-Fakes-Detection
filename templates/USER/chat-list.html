@@ -1,0 +1,85 @@
+{% extends 'USER/userBase.html' %}
+{% block header %}
+{% load static %}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div class="col-md-8 col-lg-9">
+    <div class="row">
+        <div class="col-md-12 db-sec-com">
+            <h2 class="db-tit">Chat list</h2>
+            <div class="db-pro-stat">
+                <div class="db-chat">
+                    <ul>
+                        {% if users %}
+                        {% for i in users %}
+                        <li class="db-chat-trig" onclick="window.location.href='/profileDetails?id={{i.id}}'">
+                            <div class="db-chat-pro"> <img src="/static/media/{{i.image}}" alt="">
+                            </div>
+                            <div class="db-chat-bio">
+                                <h5>{{i.name}}</h5>
+                                <span>{{i.last_message}}</span>
+                            </div>
+                            <div class="db-chat-info">
+                                <div class="time new">
+                                    <span class="timer">{{i.last_time}}</span>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                        {% else %}
+                        <center>
+                            <h1>No Users Yet</h1>
+                        </center>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END -->
+<!-- CHAT CONVERSATION BOX START -->
+<div class="chatbox" id="test">
+    <span class="comm-msg-pop-clo"><i class="fa fa-times" aria-hidden="true"></i></span>
+    <div class="inn">
+        <form name="new_chat_form" method="post">
+            <div class="s1">
+                <img src="{% static 'images/user/2.jpg' %}" class="intephoto2" alt="">
+                <h4><b class="intename2">Julia</b>,</h4>
+                <span class="avlsta avilyes">Available online</span>
+            </div>
+            <div class="s2 chat-box-messages">
+                <span class="chat-wel">Start a new chat!!! now</span>
+                <div class="chat-con">
+                    <div class="chat-lhs">Hi</div>
+                    <div class="chat-rhs">Hi</div>
+                </div>
+                <!--<span>Start A New Chat!!! Now</span>-->
+            </div>
+            <div class="s3">
+                <input type="text" name="chat_message" placeholder="Type a message here.." required="">
+                <button id="chat_send1" name="chat_send" type="submit">Send <i class="fa fa-paper-plane-o"
+                        aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END -->
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/select-opt.js' %}"></script>
+<script src="{% static 'js/slick.js' %}"></script>
+<script src="{% static 'js/gallery.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+
+
+{% endblock %}
